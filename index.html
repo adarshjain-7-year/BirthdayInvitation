@@ -52,7 +52,7 @@
     @keyframes subscribeShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
     @keyframes buttonPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
     /* thankyou */
-    .thankyou-scene{background:linear-gradient(45deg,#4caf50,#8bc34a);flex-direction:column;text-align:center;padding:20px;}
+    .thankyou-scene{background:linear-gradient(45deg,#4c72af,#4aa1c3);flex-direction:column;text-align:center;padding:20px;}
     .thankyou-title{font-size:min(70px,12vw);font-weight:900;margin-bottom:20px;animation:heartbeat 1.5s ease-in-out infinite;}
     .thumbs-up{font-size:min(100px,15vw);animation:thumbsUpBounce 2s ease-in-out infinite;}
     @keyframes heartbeat{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
@@ -101,6 +101,29 @@
     .description{color:#ccc;font-size:14px;line-height:1.5;transition:max-height 0.4s ease;}
     .description.collapsed{max-height:60px;overflow:hidden;position:relative;}
     .description.collapsed::after{content:"";position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to top,#0f0f0f,transparent);}
+    #toggleDescription {
+      background: none;
+      border: none;
+      color: #3ea6ff;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    #toggleDescription:hover {
+      color: #1e88e5;
+    }
+    @media (max-width: 600px) {
+      #toggleDescription {
+        font-size: 18px;
+        padding: 12px 0;
+        min-height: 44px;
+        gap: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -149,7 +172,10 @@
       📍 Venue: 502/1E Sudama Nagar, Sattur, Tamil Nadu<br><br>
       Don't forget to RSVP and celebrate with us! 🎮🎈
     </div>
-    <button id="toggleDescription" style="background:none;border:none;color:#3ea6ff;cursor:pointer;font-size:14px;margin-top:8px;">Show more</button>
+    <button id="toggleDescription" style="background:none;border:none;color:#3ea6ff;cursor:pointer;font-size:14px;margin-top:8px;">
+      <span id="descBtnText">Show more</span>
+      <span id="descBtnIcon">▼</span>
+    </button>
   </div>
 </div>
 
@@ -176,8 +202,20 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // Description toggle
-const desc=document.getElementById('videoDescription');const toggleBtn=document.getElementById('toggleDescription');
-toggleBtn.addEventListener('click',()=>{desc.classList.toggle('collapsed');toggleBtn.textContent=desc.classList.contains('collapsed')?"Show more":"Show less";});
+const desc=document.getElementById('videoDescription');
+const toggleBtn=document.getElementById('toggleDescription');
+const descBtnText=document.getElementById('descBtnText');
+const descBtnIcon=document.getElementById('descBtnIcon');
+toggleBtn.addEventListener('click',()=>{
+    desc.classList.toggle('collapsed');
+    if(desc.classList.contains('collapsed')){
+      descBtnText.textContent="Show more";
+      descBtnIcon.textContent="▼";
+    }else{
+      descBtnText.textContent="Show less";
+      descBtnIcon.textContent="▲";
+    }
+  });
 </script>
 </body>
 </html>
