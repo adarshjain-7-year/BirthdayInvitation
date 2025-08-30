@@ -271,13 +271,13 @@
     .time-display{font-size:14px;}
     
     /* info section - Fixed height */
-    .video-info{padding:16px;background:#0f0f0f;border-top:1px solid #333;flex-shrink:0;max-height:200px;overflow-y:auto;}
+    .video-info{padding:16px;background:#0f0f0f;border-top:1px solid #333;flex-shrink:0;max-height:216px;overflow-y:auto;}
     .video-title{font-size:20px;font-weight:700;margin-bottom:8px;}
     .video-stats{color:#aaa;margin-bottom:5px;}
     .engagement-buttons {
       display: flex;
       gap: 4px;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
     }
     
@@ -289,7 +289,7 @@
       border: none;
       color: #aaa;
       cursor: pointer;
-      padding: 8px 16px;
+      padding: 6px 16px;
       border-radius: 20px;
       transition: all 0.3s ease;
       font-size: 14px;
@@ -306,7 +306,7 @@
     }
     
     .description{color:#ccc;font-size:14px;line-height:1.5;transition:max-height 0.4s ease;}
-    .description.collapsed{max-height:60px;overflow:hidden;position:relative;}
+    .description.collapsed{max-height:25px;overflow:hidden;position:relative;}
     .description.collapsed::after{content:"";position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to top,#0f0f0f,transparent);}
     #toggleDescription {
       background: none;
