@@ -379,6 +379,25 @@
         max-height: 150px;
       }
     }
+
+    .play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  color: white;
+  background: rgba(0,0,0,0.6);
+  border-radius: 50%;
+  padding: 20px 30px;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s;
+}
+.play-overlay:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.play-overlay.hidden { display: none; }
   </style>
 </head>
 <body>
@@ -396,6 +415,9 @@
   
   <!-- player -->
   <div class="video-player">
+    <div class="play-overlay" id="playOverlay">
+  ▶️
+</div>
     <div class="video-content">
       <!-- Floating Emojis Background -->
       <div class="floating-emojis">
@@ -630,7 +652,7 @@ function subscribeChannel(){
 
 window.addEventListener('load',()=>{
   scenes[currentScene].classList.add('active');
-  resumeVideo();
+  //resumeVideo();
 });
 
 // Description toggle
@@ -665,6 +687,21 @@ document.addEventListener("DOMContentLoaded", () => {
     audio.play();
   }, { once: true });
 });
+
+    function startSlideshow() {
+  if (!isPaused && currentScene === 0 && !sceneInterval) {
+    resumeVideo();
+  } else if (isPaused) {
+    resumeVideo();
+  }
+  document.getElementById("playOverlay").classList.add("hidden");
+}
+
+// click anywhere on video to start
+document.querySelector(".video-player").addEventListener("click", startSlideshow);
+
+// click the overlay button
+document.getElementById("playOverlay").addEventListener("click", startSlideshow);
 </script>
 </body>
 </html>
