@@ -647,14 +647,20 @@ toggleBtn.addEventListener('click',()=>{
 });
 </script>
   <script>
-  document.addEventListener("click", function () {
-    let audio = document.getElementById("bg-music");
+document.addEventListener("DOMContentLoaded", () => {
+  let audio = document.getElementById("bg-music");
+
+  // try autoplay (muted)
+  audio.play().catch(() => {
+    console.log("Autoplay blocked, waiting for user interaction...");
+  });
+
+  // unmute + play on first click/tap
+  document.addEventListener("click", () => {
     audio.muted = false;
     audio.play();
-  });
-    window.onload = () => {
-   document.getElementById("bg-music").play();
-};
+  }, { once: true });
+});
 </script>
 </body>
 </html>
