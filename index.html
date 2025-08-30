@@ -646,5 +646,12 @@ toggleBtn.addEventListener('click',()=>{
   }
 });
 </script>
+  <script>
+  document.addEventListener("click", function () {
+    let audio = document.getElementById("bg-music");
+    audio.muted = false;
+    audio.play();
+  });
+</script>
 </body>
 </html>
