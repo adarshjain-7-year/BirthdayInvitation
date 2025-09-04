@@ -2,83 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta property="og:type" content="website">
+  <meta property="og:title" content="You're Invited!">
+  <meta property="og:description" content="Join us for a birthday celebration!">
+  <meta property="og:image" content="https://aryanjain-11.github.io/BirthdayInvitation/image%20(4).png">
   <meta property="og:url" content="https://aryanjain-11.github.io/BirthdayInvitation/">
-  <meta property="og:title" content="You're Invited to Aryan's Birthday Party!">
-  <meta property="og:description" content="Join us for a birthday celebration on September 7th!">
-  <meta property="og:image" content="https://aryanjain-11.github.io/BirthdayInvitation/invitation.png">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aryan's Birthday Party Invitation - YouTube</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
     *{margin:0;padding:0;box-sizing:border-box;}
-    html, body{height:100%;overflow:hidden;}
+    html, body{height:100%;overflow-x:hidden;}
     body{font-family:'Roboto',sans-serif;background:#0f0f0f;color:white;}
     .youtube-container{min-height:100vh;background:#0f0f0f;display:flex;flex-direction:column;}
     
-    /* Header */
-    .youtube-header{padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:1px solid #333;flex-shrink:0;}
+    /* header */
+    .youtube-header{background:#0f0f0f;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:1px solid #333;position:relative;z-index:1000;flex-shrink:0;}
     .youtube-logo{display:flex;align-items:center;gap:8px;}
     .youtube-logo .play-btn{width:32px;height:22px;background:#ff0000;border-radius:4px;position:relative;display:flex;align-items:center;justify-content:center;}
     .youtube-logo .play-btn::after{content:'';border-left:6px solid white;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px;}
-    .youtube-logo span{font-size:20px;font-weight:700;}
+    .youtube-logo span{font-size:20px;font-weight:700;color:white;}
     
-    /* Video Player */
-    .video-player{position:relative;background:#000;display:flex;align-items:center;justify-content:center;flex-grow:1;min-height:250px;}
+    /* player */
+    .video-player{position:relative;background:#000;display:flex;align-items:center;justify-content:center;height:calc(100vh - 56px - 216px);min-height:300px;flex-shrink:0;}
     .video-content{width:100%;height:100%;position:relative;overflow:hidden;background:linear-gradient(45deg,#cc0000,#ff0000,#dc143c,#b22222);background-size:400% 400%;animation:gradientShift 10s ease infinite;}
     @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
     
-    /* Scenes */
+    /* scenes */
     .scene{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(0.95);transition:opacity 0.8s ease-in-out, transform 0.8s ease-in-out;padding:20px;text-align:center;z-index:2;}
     .scene.active{opacity:1;transform:scale(1);}
     
-    /* Scene 1: Intro */
+    /* scene content */
     .youtube-logo-big{font-size:clamp(60px, 12vw, 100px);font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:20px;text-shadow:0 0 30px rgba(255,255,255,0.5);}
     .play-icon-huge{border-left:clamp(30px, 6vw, 50px) solid white;border-top:clamp(20px, 4vw, 35px) solid transparent;border-bottom:clamp(20px, 4vw, 35px) solid transparent;animation:playPulse 1.5s ease-in-out infinite;}
     @keyframes playPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
     
-    /* Scene 2: Birthday */
-    .birthday-scene{background:linear-gradient(45deg,#ffcccc,#ffd6d6,#ffe6e6);color:#cc0000;gap:20px;}
+    .birthday-scene{gap:20px; background:linear-gradient(45deg,#ffcccc,#ffd6d6,#ffe6e6);color:#cc0000;}
     .birthday-title{font-size:clamp(40px, 10vw, 80px);font-weight:900;}
     .birthday-name{font-size:clamp(50px, 12vw, 90px);font-weight:900;text-shadow:0 0 20px rgba(255,0,0,0.4);}
     .age-display{font-size:clamp(30px, 8vw, 50px);font-weight:700;background:#cc0000;color:white;padding:10px 25px;border-radius:50px;}
     
-    /* Scene 3: Details */
-    .party-details-scene{background:linear-gradient(45deg,#8b0000,#cc0000,#ff4444);color:white;gap:20px;}
+    .party-details-scene{gap:20px; background:linear-gradient(45deg,#8b0000,#cc0000,#ff4444);color:white;}
     .details-title{font-size:clamp(40px, 8vw, 60px);font-weight:900;}
     .detail-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,0.2);max-width:95%;}
     .detail-item{font-size:clamp(16px, 4vw, 24px);font-weight:500;margin:12px 0;}
     
-    /* Scene 4 & 5 */
-    .subscribe-scene, .thankyou-scene{gap:30px;}
     .subscribe-title, .thankyou-title{font-size:clamp(50px, 12vw, 80px);font-weight:900;}
     .thumbs-up{font-size:clamp(60px, 15vw, 100px); animation:thumbsUpBounce 2s ease-in-out infinite;}
     @keyframes thumbsUpBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
-
-    /* Controls */
+    
+    /* controls */
     .video-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.7));padding:10px 20px;z-index:10;}
     .controls-row{display:flex;align-items:center;justify-content:space-between;}
     .control-btn{background:none;border:none;color:white;font-size:24px;cursor:pointer;padding:8px;}
     .time-display{font-size:14px;font-weight:500;}
-    
-    /* Info Section */
-    .video-info{padding:16px;flex-shrink:0;}
+
+    .play-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(60px, 10vw, 80px);color:white;background:rgba(0,0,0,0.6);border-radius:50%;padding:20px;width:1.5em;height:1.5em;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:transform 0.2s ease;}
+    .play-overlay:hover{transform:translate(-50%,-50%) scale(1.1);}
+    .play-overlay.hidden{display:none;}
+
+    /* info section */
+    .video-info{padding:16px;background:#0f0f0f;border-top:1px solid #333;flex-shrink:0;max-height:216px;overflow-y:auto;}
     .video-title{font-size:18px;font-weight:500;margin-bottom:8px;}
     .video-stats{color:#aaa;font-size:14px;margin-bottom:12px;}
     .engagement-buttons{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
     .engage-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:none;color:white;cursor:pointer;padding:8px 16px;border-radius:20px;font-size:14px;font-weight:500;}
     .engage-btn:hover{background:rgba(255,255,255,0.2);}
     .engage-btn.liked{color:#ff0000;}
-    .description{color:#ccc;font-size:14px;line-height:1.5;max-height:4.5em;overflow:hidden;transition:max-height 0.4s ease-in-out;}
-    .description.expanded{max-height:200px;}
+    .description{color:#ccc;font-size:14px;line-height:1.5;transition:max-height 0.4s ease-in-out;}
+    .description.collapsed{max-height:25px;overflow:hidden;position:relative;}
+    .description.collapsed::after{content:"";position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to top,#0f0f0f,transparent);}
     #toggleDescription{background:none;border:none;color:white;cursor:pointer;font-size:14px;margin-top:8px;font-weight:bold;padding:4px;border-radius:4px;}
-    
-    /* Play Overlay */
-    .play-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(60px, 10vw, 80px);color:white;background:rgba(0,0,0,0.6);border-radius:50%;padding:20px;width:1.5em;height:1.5em;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:transform 0.2s ease;}
-    .play-overlay:hover{transform:translate(-50%,-50%) scale(1.1);}
-    .play-overlay.hidden{display:none;}
+
   </style>
 </head>
 <body>
@@ -150,7 +144,7 @@
       <button class="engage-btn" id="shareBtn"><span>📤</span> <span>Share</span></button>
       <button class="engage-btn" id="rsvpBtn"><span>🔔</span> <span>RSVP</span></button>
     </div>
-    <div class="description" id="videoDescription">
+    <div class="description collapsed" id="videoDescription">
       Join us for Aryan Jain's amazing 11th birthday celebration! 🎂✨<br><br>
       <strong>📅 Party:</strong> September 7th, 2025 at 6:00 PM<br>
       <strong>🕺 Dress Code:</strong> Red & White Theme Party<br>
@@ -271,8 +265,8 @@ document.getElementById('toggleDescription').addEventListener('click', (e) => {
     e.stopPropagation();
     const desc = document.getElementById('videoDescription');
     const btn = e.currentTarget;
-    desc.classList.toggle('expanded');
-    btn.textContent = desc.classList.contains('expanded') ? 'Show less' : 'Show more';
+    desc.classList.toggle('collapsed');
+    btn.textContent = desc.classList.contains('collapsed') ? 'Show more' : 'Show less';
 });
 </script>
 </body>
