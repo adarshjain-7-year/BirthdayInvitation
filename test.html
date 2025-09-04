@@ -11,19 +11,19 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
     *{margin:0;padding:0;box-sizing:border-box;}
-    html, body{height:100%;overflow-x:hidden;}
+    html, body{min-height:100%;}
     body{font-family:'Roboto',sans-serif;background:#0f0f0f;color:white;}
     .youtube-container{min-height:100vh;background:#0f0f0f;display:flex;flex-direction:column;}
     
-    /* header */
-    .youtube-header{background:#0f0f0f;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:1px solid #333;position:relative;z-index:1000;flex-shrink:0;}
+    /* Header */
+    .youtube-header{background:#0f0f0f;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:1px solid #333;position:sticky;top:0;z-index:1000;flex-shrink:0;}
     .youtube-logo{display:flex;align-items:center;gap:8px;}
     .youtube-logo .play-btn{width:32px;height:22px;background:#ff0000;border-radius:4px;position:relative;display:flex;align-items:center;justify-content:center;}
     .youtube-logo .play-btn::after{content:'';border-left:6px solid white;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px;}
     .youtube-logo span{font-size:20px;font-weight:700;color:white;}
     
-    /* player */
-    .video-player{position:relative;background:#000;display:flex;align-items:center;justify-content:center;height:calc(100vh - 56px - 216px);min-height:300px;flex-shrink:0;}
+    /* Player */
+    .video-player{position:relative;background:#000;display:flex;align-items:center;justify-content:center;height:calc(56.25vw);max-height:calc(100vh - 56px - 200px);min-height:220px;flex-shrink:0;}
     .video-content{width:100%;height:100%;position:relative;overflow:hidden;background:linear-gradient(45deg,#cc0000,#ff0000,#dc143c,#b22222);background-size:400% 400%;animation:gradientShift 10s ease infinite;}
     @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
@@ -42,22 +42,13 @@
     .floating-emoji:nth-child(10){left:50%;animation:float2 12s linear infinite;animation-delay:7s}
     .floating-emoji:nth-child(11){left:65%;animation:float3 13s linear infinite;animation-delay:9s}
     .floating-emoji:nth-child(12){left:80%;animation:float1 11s linear infinite;animation-delay:11s}
-    .floating-emoji:nth-child(13){left:12%;animation:float3 12s linear infinite;animation-delay:1.5s}
-    .floating-emoji:nth-child(14){left:28%;animation:float1 14s linear infinite;animation-delay:3.5s}
-    .floating-emoji:nth-child(15){left:45%;animation:float2 13s linear infinite;animation-delay:5.5s}
-    .floating-emoji:nth-child(16){left:62%;animation:float3 11s linear infinite;animation-delay:7.5s}
-    .floating-emoji:nth-child(17){left:78%;animation:float1 12s linear infinite;animation-delay:9.5s}
-    .floating-emoji:nth-child(18){left:90%;animation:float2 14s linear infinite;animation-delay:11.5s}
-    .floating-emoji:nth-child(19){left:15%;animation:float1 15s linear infinite;animation-delay:.8s}
-    .floating-emoji:nth-child(20){left:85%;animation:float3 10s linear infinite;animation-delay:6.2s}
     .floating-emoji:nth-child(3n){font-size:2rem}
     .floating-emoji:nth-child(5n){font-size:1.2rem}
     .floating-emoji:nth-child(7n){font-size:1.8rem}
-    .floating-emoji:nth-child(11n){font-size:2.2rem}
     @keyframes float1{0%{transform:translateY(0) translateX(0) rotate(0deg) scale(0);opacity:0}5%{opacity:.8;transform:translateY(-80px) translateX(0) rotate(15deg) scale(.7)}25%{transform:translateY(-25vh) translateX(-30px) rotate(90deg) scale(1);opacity:.9}50%{transform:translateY(-50vh) translateX(20px) rotate(180deg) scale(1.1);opacity:1}75%{transform:translateY(-75vh) translateX(-15px) rotate(270deg) scale(.9);opacity:.8}95%{transform:translateY(-95vh) translateX(10px) rotate(345deg) scale(.5);opacity:.3}100%{transform:translateY(-100vh) translateX(0) rotate(360deg) scale(0);opacity:0}}
     @keyframes float2{0%{transform:translateY(0) translateX(0) rotate(0deg) scale(0);opacity:0}8%{opacity:.7;transform:translateY(-100px) translateX(15px) rotate(-20deg) scale(.8)}30%{transform:translateY(-30vh) translateX(40px) rotate(-120deg) scale(1.2);opacity:.9}60%{transform:translateY(-60vh) translateX(-25px) rotate(-240deg) scale(1);opacity:1}85%{transform:translateY(-85vh) translateX(35px) rotate(-320deg) scale(.7);opacity:.5}100%{transform:translateY(-100vh) translateX(0) rotate(-360deg) scale(0);opacity:0}}
     @keyframes float3{0%{transform:translateY(0) translateX(0) rotate(0deg) scale(0);opacity:0}10%{opacity:.9;transform:translateY(-120px) translateX(-10px) rotate(45deg) scale(.9)}35%{transform:translateY(-35vh) translateX(-40px) rotate(180deg) scale(1.3);opacity:1}65%{transform:translateY(-65vh) translateX(30px) rotate(270deg) scale(.8);opacity:.9}90%{transform:translateY(-90vh) translateX(-20px) rotate(340deg) scale(.4);opacity:.4}100%{transform:translateY(-100vh) translateX(0) rotate(360deg) scale(0);opacity:0}}
-
+    
     /* Scenes */
     .scene{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(0.95);transition:opacity 0.8s ease-in-out, transform 0.8s ease-in-out;padding:20px;text-align:center;z-index:2;}
     .scene.active{opacity:1;transform:scale(1);}
@@ -82,7 +73,6 @@
     .detail-item{font-size:clamp(16px, 4vw, 24px);font-weight:500;margin:12px 0;}
     @keyframes slideInLeft{from{transform:translateX(-100px);opacity:0;} to{transform:translateX(0);opacity:1;}}
 
-    .subscribe-title, .thankyou-title{font-size:clamp(50px, 12vw, 80px);font-weight:900;}
     .thumbs-up{font-size:clamp(60px, 15vw, 100px); animation:thumbsUpBounce 2s ease-in-out infinite;}
     @keyframes thumbsUpBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
 
@@ -97,17 +87,16 @@
     .play-overlay.hidden{display:none;}
 
     /* info section */
-    .video-info{padding:16px;background:#0f0f0f;border-top:1px solid #333;flex-shrink:0;max-height:216px;overflow-y:auto;}
+    .video-info{padding:16px;background:#0f0f0f;flex-shrink:0;}
     .video-title{font-size:18px;font-weight:500;margin-bottom:8px;}
     .video-stats{color:#aaa;font-size:14px;margin-bottom:12px;}
     .engagement-buttons{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
     .engage-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:none;color:white;cursor:pointer;padding:8px 16px;border-radius:20px;font-size:14px;font-weight:500;}
     .engage-btn:hover{background:rgba(255,255,255,0.2);}
     .engage-btn.liked{color:#ff0000;}
-    .description{color:#ccc;font-size:14px;line-height:1.5;transition:max-height 0.4s ease-in-out;}
-    .description.collapsed{max-height:25px;overflow:hidden;position:relative;}
-    .description.collapsed::after{content:"";position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to top,#0f0f0f,transparent);}
-    #toggleDescription{background:none;border:none;color:white;cursor:pointer;font-size:14px;margin-top:8px;font-weight:bold;padding:4px;border-radius:4px;}
+    .description{color:#ccc;font-size:14px;line-height:1.5;transition:max-height 0.4s ease-in-out; overflow: hidden;}
+    .description.collapsed{max-height: 50px;}
+    #toggleDescription{background: none; border: none; color: white; cursor: pointer; font-size: 14px; margin-top: 8px; font-weight: bold; padding: 4px; border-radius: 4px;}
   </style>
 </head>
 <body>
@@ -128,24 +117,24 @@
     <div class="video-content">
       
       <div class="floating-emojis">
-        <div class="floating-emoji">🎂</div><div class="floating-emoji">🎉</div><div class="floating-emoji">🎈</div><div class="floating-emoji">🎁</div><div class="floating-emoji">🥳</div><div class="floating-emoji">🎊</div><div class="floating-emoji">🍰</div><div class="floating-emoji">🎵</div><div class="floating-emoji">⭐</div><div class="floating-emoji">🎆</div><div class="floating-emoji">🎈</div><div class="floating-emoji">🎉</div><div class="floating-emoji">🎂</div><div class="floating-emoji">🎁</div><div class="floating-emoji">🥳</div><div class="floating-emoji">🎊</div><div class="floating-emoji">🍰</div><div class="floating-emoji">🎵</div><div class="floating-emoji">⭐</div><div class="floating-emoji">🎆</div>
+        <div class="floating-emoji">🎂</div><div class="floating-emoji">🎉</div><div class="floating-emoji">🎈</div><div class="floating-emoji">🎁</div><div class="floating-emoji">🥳</div><div class="floating-emoji">🎊</div>
       </div>
 
       <div class="scene youtube-intro-scene active" id="scene1">
-        <div class="floating-emojis scene-emojis"><div class="floating-emoji">📺</div><div class="floating-emoji">▶️</div><div class="floating-emoji">🎬</div><div class="floating-emoji">📹</div><div class="floating-emoji">🎥</div><div class="floating-emoji">⭐</div><div class="floating-emoji">✨</div><div class="floating-emoji">🔴</div></div>
+        <div class="floating-emojis scene-emojis"><div class="floating-emoji">📺</div><div class="floating-emoji">▶️</div><div class="floating-emoji">🎬</div></div>
         <div class="youtube-logo-big"><div class="play-icon-huge"></div>YouTube</div>
         <h2>Presents...</h2>
       </div>
       
       <div class="scene birthday-scene" id="scene2">
-        <div class="floating-emojis scene-emojis"><div class="floating-emoji">🎂</div><div class="floating-emoji">🕯️</div><div class="floating-emoji">🎈</div><div class="floating-emoji">🎉</div><div class="floating-emoji">🥳</div><div class="floating-emoji">🎊</div><div class="floating-emoji">🍰</div><div class="floating-emoji">🎁</div><div class="floating-emoji">🌟</div><div class="floating-emoji">💫</div></div>
+        <div class="floating-emojis scene-emojis"><div class="floating-emoji">🎂</div><div class="floating-emoji">🕯️</div><div class="floating-emoji">🎈</div></div>
         <div class="birthday-title">BIRTHDAY PARTY!</div>
         <div class="birthday-name">ARYAN JAIN</div>
         <div class="age-display">TURNING 11!</div>
       </div>
       
       <div class="scene party-details-scene" id="scene3">
-        <div class="floating-emojis scene-emojis"><div class="floating-emoji">📅</div><div class="floating-emoji">🕕</div><div class="floating-emoji">📍</div><div class="floating-emoji">🏠</div><div class="floating-emoji">🎪</div><div class="floating-emoji">🎯</div><div class="floating-emoji">📋</div><div class="floating-emoji">✅</div></div>
+        <div class="floating-emojis scene-emojis"><div class="floating-emoji">📅</div><div class="floating-emoji">🕕</div><div class="floating-emoji">📍</div></div>
         <div class="details-title">Party Details</div>
         <div class="detail-card">
           <div class="detail-item">🎂 Party: September 7th, 2025 at 6:00 PM 🎉</div>
@@ -155,12 +144,12 @@
       </div>
       
       <div class="scene subscribe-scene" id="scene4">
-        <div class="floating-emojis scene-emojis"><div class="floating-emoji">🔔</div><div class="floating-emoji">📞</div><div class="floating-emoji">💌</div><div class="floating-emoji">📧</div><div class="floating-emoji">📝</div><div class="floating-emoji">✉️</div><div class="floating-emoji">📲</div><div class="floating-emoji">🔥</div></div>
+         <div class="floating-emojis scene-emojis"><div class="floating-emoji">🔔</div><div class="floating-emoji">📞</div><div class="floating-emoji">💌</div></div>
         <div class="subscribe-title">DON'T MISS OUT!</div>
       </div>
       
       <div class="scene thankyou-scene" id="scene5">
-        <div class="floating-emojis scene-emojis"><div class="floating-emoji">👍</div><div class="floating-emoji">❤️</div><div class="floating-emoji">🙏</div><div class="floating-emoji">😊</div><div class="floating-emoji">🤗</div><div class="floating-emoji">💝</div><div class="floating-emoji">🌈</div><div class="floating-emoji">🎊</div></div>
+        <div class="floating-emojis scene-emojis"><div class="floating-emoji">👍</div><div class="floating-emoji">❤️</div><div class="floating-emoji">🙏</div></div>
         <div class="thankyou-title">SEE YOU THERE!</div>
         <div class="thumbs-up">👍</div>
       </div>
@@ -208,10 +197,12 @@ const videoPlayer = document.getElementById('videoPlayer');
 const playOverlay = document.getElementById('playOverlay');
 const audio = document.getElementById('bg-music');
 const muteBtn = document.getElementById('muteBtn');
+const description = document.getElementById('videoDescription');
+const toggleDescriptionBtn = document.getElementById('toggleDescription');
 
 // --- State Variables ---
 let currentScene = 0;
-const sceneDuration = 6000; // 6 seconds
+const sceneDuration = 6000;
 let sceneInterval;
 let progressInterval;
 let elapsedTime = 0;
@@ -227,7 +218,7 @@ function nextScene() {
 
 function updateTimer() {
   elapsedTime++;
-  if (elapsedTime >= totalDuration) { // Use >= to ensure it stops/resets correctly
+  if (elapsedTime > totalDuration) {
     elapsedTime = 0; 
   }
   const seconds = String(elapsedTime % 60).padStart(2, '0');
@@ -246,18 +237,11 @@ function pauseVideo() {
 
 function resumeVideo() {
   isPaused = false;
-  // Clear any stray intervals before starting new ones
   clearInterval(sceneInterval);
   clearInterval(progressInterval);
-  
-  // Set intervals
   sceneInterval = setInterval(nextScene, sceneDuration);
   progressInterval = setInterval(updateTimer, 1000);
-  
-  // Play audio
   audio.play().catch(error => console.log("Audio play failed:", error));
-  
-  // Update UI
   playPauseBtn.textContent = '⏸️';
   playOverlay.classList.add('hidden');
 }
@@ -283,18 +267,26 @@ muteBtn.addEventListener('click', (e) => {
     muteBtn.textContent = audio.muted ? '🔇' : '🔊';
 });
 
-// --- Other UI Functions ---
-document.getElementById('likeBtn').addEventListener('click', (e) => {
+toggleDescriptionBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    const likeBtn = e.currentTarget;
+    description.classList.toggle('collapsed');
+    e.currentTarget.textContent = description.classList.contains('collapsed') ? 'Show more' : 'Show less';
+});
+
+// Stop propagation on other buttons to prevent player click-through
+document.querySelectorAll('.engage-btn').forEach(btn => {
+    btn.addEventListener('click', e => e.stopPropagation());
+});
+
+document.getElementById('likeBtn').addEventListener('click', () => {
+    const likeBtn = document.getElementById('likeBtn');
     const likeCount = document.getElementById('likeCount');
     likeBtn.classList.toggle('liked');
     let count = parseInt(likeCount.textContent);
     likeCount.textContent = likeBtn.classList.contains('liked') ? count + 1 : count - 1;
 });
 
-document.getElementById('shareBtn').addEventListener('click', (e) => {
-    e.stopPropagation();
+document.getElementById('shareBtn').addEventListener('click', () => {
     if (navigator.share) {
         navigator.share({
             title: "Aryan Jain's 11th Birthday Party",
@@ -306,17 +298,8 @@ document.getElementById('shareBtn').addEventListener('click', (e) => {
     }
 });
 
-document.getElementById('rsvpBtn').addEventListener('click', (e) => {
-    e.stopPropagation();
+document.getElementById('rsvpBtn').addEventListener('click', () => {
     alert('Thanks for RSVPing! See you at the party! 🎉');
-});
-
-document.getElementById('toggleDescription').addEventListener('click', (e) => {
-    e.stopPropagation();
-    const desc = document.getElementById('videoDescription');
-    const btn = e.currentTarget;
-    desc.classList.toggle('collapsed');
-    btn.textContent = desc.classList.contains('collapsed') ? 'Show more' : 'Show less';
 });
 </script>
 </body>
