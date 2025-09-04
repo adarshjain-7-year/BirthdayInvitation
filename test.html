@@ -15,43 +15,53 @@
     body{font-family:'Roboto',sans-serif;background:#0f0f0f;color:white;}
     .youtube-container{min-height:100vh;background:#0f0f0f;display:flex;flex-direction:column;}
     
-    /* header */
+    /* Header */
     .youtube-header{background:#0f0f0f;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:1px solid #333;position:relative;z-index:1000;flex-shrink:0;}
     .youtube-logo{display:flex;align-items:center;gap:8px;}
     .youtube-logo .play-btn{width:32px;height:22px;background:#ff0000;border-radius:4px;position:relative;display:flex;align-items:center;justify-content:center;}
     .youtube-logo .play-btn::after{content:'';border-left:6px solid white;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px;}
     .youtube-logo span{font-size:20px;font-weight:700;color:white;}
     
-    /* player */
+    /* Player */
     .video-player{position:relative;background:#000;display:flex;align-items:center;justify-content:center;height:calc(100vh - 56px - 216px);min-height:300px;flex-shrink:0;}
     .video-content{width:100%;height:100%;position:relative;overflow:hidden;background:linear-gradient(45deg,#cc0000,#ff0000,#dc143c,#b22222);background-size:400% 400%;animation:gradientShift 10s ease infinite;}
     @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-    
-    /* scenes */
+
+    /* Scenes */
     .scene{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(0.95);transition:opacity 0.8s ease-in-out, transform 0.8s ease-in-out;padding:20px;text-align:center;z-index:2;}
     .scene.active{opacity:1;transform:scale(1);}
     
-    /* scene content */
-    .youtube-logo-big{font-size:clamp(60px, 12vw, 100px);font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:20px;text-shadow:0 0 30px rgba(255,255,255,0.5);}
+    /* --- ANIMATIONS RESTORED --- */
+
+    /* Scene 1: Intro Animations */
+    .youtube-logo-big{font-size:clamp(60px, 12vw, 100px);font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:20px;text-shadow:0 0 30px rgba(255,255,255,0.5); animation:logoSpin 1.5s ease-out;}
     .play-icon-huge{border-left:clamp(30px, 6vw, 50px) solid white;border-top:clamp(20px, 4vw, 35px) solid transparent;border-bottom:clamp(20px, 4vw, 35px) solid transparent;animation:playPulse 1.5s ease-in-out infinite;}
+    @keyframes logoSpin{from{transform:rotateY(-180deg) scale(0.5);opacity:0;} to{transform:rotateY(0) scale(1);opacity:1;}}
     @keyframes playPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
-    
+
+    /* Scene 2: Birthday Animations */
     .birthday-scene{gap:20px; background:linear-gradient(45deg,#ffcccc,#ffd6d6,#ffe6e6);color:#cc0000;}
-    .birthday-title{font-size:clamp(40px, 10vw, 80px);font-weight:900;}
-    .birthday-name{font-size:clamp(50px, 12vw, 90px);font-weight:900;text-shadow:0 0 20px rgba(255,0,0,0.4);}
-    .age-display{font-size:clamp(30px, 8vw, 50px);font-weight:700;background:#cc0000;color:white;padding:10px 25px;border-radius:50px;}
+    .birthday-title{font-size:clamp(40px, 10vw, 80px);font-weight:900; animation:titleBounce 1s ease-out;}
+    .birthday-name{font-size:clamp(50px, 12vw, 90px);font-weight:900;text-shadow:0 0 20px rgba(255,0,0,0.4); animation:nameGlow 2s ease-in-out infinite alternate;}
+    .age-display{font-size:clamp(30px, 8vw, 50px);font-weight:700;background:#cc0000;color:white;padding:10px 25px;border-radius:50px; animation:ageRotate 3s linear infinite;}
+    @keyframes titleBounce{0%{transform:translateY(-100px);opacity:0;}60%{transform:translateY(10px);}100%{transform:translateY(0);opacity:1;}}
+    @keyframes nameGlow{from{transform:scale(1);} to{transform:scale(1.05);}}
+    @keyframes ageRotate{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
     
+    /* Scene 3: Details Animations */
     .party-details-scene{gap:20px; background:linear-gradient(45deg,#8b0000,#cc0000,#ff4444);color:white;}
-    .details-title{font-size:clamp(40px, 8vw, 60px);font-weight:900;}
+    .details-title{font-size:clamp(40px, 8vw, 60px);font-weight:900; animation:slideInLeft 1s ease-out;}
     .detail-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,0.2);max-width:95%;}
     .detail-item{font-size:clamp(16px, 4vw, 24px);font-weight:500;margin:12px 0;}
-    
+    @keyframes slideInLeft{from{transform:translateX(-100px);opacity:0;} to{transform:translateX(0);opacity:1;}}
+
+    /* Other Scene Animations */
     .subscribe-scene, .thankyou-scene {gap: 20px;}
     .subscribe-title, .thankyou-title{font-size:clamp(50px, 12vw, 80px);font-weight:900;}
     .thumbs-up{font-size:clamp(60px, 15vw, 100px); animation:thumbsUpBounce 2s ease-in-out infinite;}
     @keyframes thumbsUpBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
-    
-    /* controls */
+
+    /* Controls */
     .video-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.7));padding:10px 20px;z-index:10;}
     .controls-row{display:flex;align-items:center;justify-content:space-between;}
     .control-btn{background:none;border:none;color:white;font-size:24px;cursor:pointer;padding:8px;}
@@ -73,7 +83,6 @@
     .description.collapsed{max-height:25px;overflow:hidden;position:relative;}
     .description.collapsed::after{content:"";position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to top,#0f0f0f,transparent);}
     #toggleDescription{background:none;border:none;color:white;cursor:pointer;font-size:14px;margin-top:8px;font-weight:bold;padding:4px;border-radius:4px;}
-
   </style>
 </head>
 <body>
