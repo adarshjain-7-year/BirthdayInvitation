@@ -14,143 +14,71 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
     *{margin:0;padding:0;box-sizing:border-box;}
-    html, body{height:100%;overflow-x:hidden;}
+    html, body{height:100%;overflow:hidden;}
     body{font-family:'Roboto',sans-serif;background:#0f0f0f;color:white;}
     .youtube-container{min-height:100vh;background:#0f0f0f;display:flex;flex-direction:column;}
     
-    /* header */
-    .youtube-header{background:#0f0f0f;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:1px solid #333;position:relative;z-index:1000;flex-shrink:0;}
+    /* Header */
+    .youtube-header{padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:1px solid #333;flex-shrink:0;}
     .youtube-logo{display:flex;align-items:center;gap:8px;}
     .youtube-logo .play-btn{width:32px;height:22px;background:#ff0000;border-radius:4px;position:relative;display:flex;align-items:center;justify-content:center;}
     .youtube-logo .play-btn::after{content:'';border-left:6px solid white;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px;}
-    .youtube-logo span{font-size:20px;font-weight:700;color:white;}
+    .youtube-logo span{font-size:20px;font-weight:700;}
     
-    /* player - Fixed height calculation */
-    .video-player{
-      position:relative;
-      background:#000;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:calc(100vh - 56px - 200px);
-      min-height:300px;
-      flex-shrink:0;
-    }
+    /* Video Player */
+    .video-player{position:relative;background:#000;display:flex;align-items:center;justify-content:center;flex-grow:1;min-height:250px;}
+    .video-content{width:100%;height:100%;position:relative;overflow:hidden;background:linear-gradient(45deg,#cc0000,#ff0000,#dc143c,#b22222);background-size:400% 400%;animation:gradientShift 10s ease infinite;}
+    @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
     
-    .video-content{
-      width:100%;
-      height:100%;
-      position:relative;
-      overflow:hidden;
-      background:linear-gradient(45deg,#cc0000,#ff0000,#ff3333,#ff1a1a,#dc143c,#b22222);
-      background-size:600% 600%;
-      animation:gradientShift 5s ease-in-out infinite;
-    }
-    
-    /* Floating Emojis */
-    .floating-emojis {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
-    }
-    
-    .floating-emoji {
-      position: absolute;
-      font-size: 1.5rem;
-      opacity: 0;
-      bottom: -60px;
-      animation-duration: 12s;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
-      user-select: none;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    }
-    
-    .floating-emoji:nth-child(1) { left: 8%; animation: float1 12s linear infinite; animation-delay: 0s; }
-    .floating-emoji:nth-child(2) { left: 25%; animation: float2 14s linear infinite; animation-delay: 2s; }
-    .floating-emoji:nth-child(3) { left: 42%; animation: float3 11s linear infinite; animation-delay: 4s; }
-    .floating-emoji:nth-child(4) { left: 59%; animation: float1 13s linear infinite; animation-delay: 6s; }
-    .floating-emoji:nth-child(5) { left: 76%; animation: float2 12s linear infinite; animation-delay: 8s; }
-    .floating-emoji:nth-child(6) { left: 93%; animation: float3 15s linear infinite; animation-delay: 10s; }
-    
-    @keyframes float1 { 0% { transform: translateY(0) scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-100vh) scale(1); opacity: 0; } }
-    @keyframes float2 { 0% { transform: translateY(0) scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-100vh) scale(0.8); opacity: 0; } }
-    @keyframes float3 { 0% { transform: translateY(0) scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-100vh) scale(1.2); opacity: 0; } }
-    
-    @keyframes gradientShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
-    
-    .scene{
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      opacity:0;
-      transform:scale(0.9);
-      transition:all 1s ease-in-out;
-      padding:20px;
-      z-index:2;
-      text-align:center;
-    }
+    /* Scenes */
+    .scene{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(0.95);transition:opacity 0.8s ease-in-out, transform 0.8s ease-in-out;padding:20px;text-align:center;z-index:2;}
     .scene.active{opacity:1;transform:scale(1);}
     
-    /* Scene Specific Animations */
-    .youtube-intro-scene .youtube-logo-big{font-size:min(100px,12vw);font-weight:900;margin-bottom:30px;animation:logoSpin 2s ease-out;display:flex;align-items:center;gap:20px;text-shadow:0 0 50px rgba(255,255,255,0.5);justify-content:center;flex-wrap:wrap;}
-    .youtube-intro-scene .play-icon-huge{border-left:min(50px,6vw) solid white;border-top:min(35px,4vw) solid transparent;border-bottom:min(35px,4vw) solid transparent;animation:playPulse 1.5s ease-in-out infinite;}
-    @keyframes logoSpin{0%{transform:rotateY(-180deg) scale(0.5);opacity:0;}100%{transform:rotateY(0) scale(1);opacity:1;}}
-    @keyframes playPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
+    /* Scene 1: Intro */
+    .youtube-logo-big{font-size:clamp(60px, 12vw, 100px);font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:20px;text-shadow:0 0 30px rgba(255,255,255,0.5);}
+    .play-icon-huge{border-left:clamp(30px, 6vw, 50px) solid white;border-top:clamp(20px, 4vw, 35px) solid transparent;border-bottom:clamp(20px, 4vw, 35px) solid transparent;animation:playPulse 1.5s ease-in-out infinite;}
+    @keyframes playPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
     
-    .birthday-scene{background:linear-gradient(45deg,#ffcccc,#ffd6d6,#ffe6e6);color:#cc0000;flex-direction:column;}
-    .birthday-title{font-size:min(80px,12vw);font-weight:900;margin-bottom:20px;animation:titleBounce 1.5s ease-out;}
-    .birthday-name{font-size:min(90px,14vw);font-weight:900;margin:20px 0;text-shadow:0 0 20px rgba(255,0,0,0.5),0 0 40px rgba(255,0,0,0.3);animation:nameGlow 2s ease-in-out infinite alternate;}
-    @keyframes titleBounce{0%{transform:translateY(-200px);opacity:0;}60%{transform:translateY(20px);}100%{transform:translateY(0);opacity:1;}}
-    @keyframes nameGlow{0%{transform:scale(1);}100%{transform:scale(1.05);}}
+    /* Scene 2: Birthday */
+    .birthday-scene{background:linear-gradient(45deg,#ffcccc,#ffd6d6,#ffe6e6);color:#cc0000;gap:20px;}
+    .birthday-title{font-size:clamp(40px, 10vw, 80px);font-weight:900;}
+    .birthday-name{font-size:clamp(50px, 12vw, 90px);font-weight:900;text-shadow:0 0 20px rgba(255,0,0,0.4);}
+    .age-display{font-size:clamp(30px, 8vw, 50px);font-weight:700;background:#cc0000;color:white;padding:10px 25px;border-radius:50px;}
     
-    .party-details-scene{background:linear-gradient(45deg,#8b0000,#cc0000,#ff4444);flex-direction:column;color:white;}
-    .details-title{font-size:min(50px,8vw);font-weight:900;margin-bottom:30px;animation:slideInLeft 1s ease-out;}
-    .detail-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;padding:20px;margin:15px auto;border:2px solid rgba(255,255,255,0.2);max-width:90%;}
-    .detail-item{font-size:min(24px,4vw);font-weight:700;margin:12px 0;}
-    @keyframes slideInLeft{0%{transform:translateX(-100px);opacity:0;}100%{transform:translateX(0);opacity:1;}}
+    /* Scene 3: Details */
+    .party-details-scene{background:linear-gradient(45deg,#8b0000,#cc0000,#ff4444);color:white;gap:20px;}
+    .details-title{font-size:clamp(40px, 8vw, 60px);font-weight:900;}
+    .detail-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,0.2);max-width:95%;}
+    .detail-item{font-size:clamp(16px, 4vw, 24px);font-weight:500;margin:12px 0;}
     
-    .subscribe-scene{background:linear-gradient(45deg,#ff6b6b,#ff5252,#f44336);flex-direction:column;}
-    .subscribe-title{font-size:min(60px,10vw);font-weight:900;margin-bottom:30px;animation:subscribeShake 2s ease-in-out infinite;}
-    @keyframes subscribeShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+    /* Scene 4 & 5 */
+    .subscribe-scene, .thankyou-scene{gap:30px;}
+    .subscribe-title, .thankyou-title{font-size:clamp(50px, 12vw, 80px);font-weight:900;}
+    .thumbs-up{font-size:clamp(60px, 15vw, 100px); animation:thumbsUpBounce 2s ease-in-out infinite;}
+    @keyframes thumbsUpBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
 
-    .thankyou-scene{background:linear-gradient(45deg,#dc143c,#ff1744,#ff5722);flex-direction:column;}
-    .thankyou-title{font-size:min(70px,12vw);font-weight:900;margin-bottom:20px;animation:heartbeat 1.5s ease-in-out infinite;}
-    .thumbs-up{font-size:min(100px,15vw);animation:thumbsUpBounce 2s ease-in-out infinite;}
-    @keyframes heartbeat{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
-    @keyframes thumbsUpBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
-
-    /* controls */
-    .video-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.8));padding:10px 20px;}
+    /* Controls */
+    .video-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.7));padding:10px 20px;z-index:10;}
     .controls-row{display:flex;align-items:center;justify-content:space-between;}
     .control-btn{background:none;border:none;color:white;font-size:24px;cursor:pointer;padding:8px;}
-    .time-display{font-size:14px;}
+    .time-display{font-size:14px;font-weight:500;}
     
-    /* info section */
-    .video-info{padding:16px;background:#0f0f0f;border-top:1px solid #333;flex-shrink:0;max-height:216px;overflow-y:auto;}
-    .video-title{font-size:20px;font-weight:700;margin-bottom:8px;}
-    .video-stats{color:#aaa;margin-bottom:5px;}
-    .engagement-buttons {display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap;}
-    .engage-btn {display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:none;color:white;cursor:pointer;padding:8px 16px;border-radius:20px;font-size:14px;font-weight:500;}
-    .engage-btn:hover {background:rgba(255,255,255,0.2);}
-    .engage-btn.liked {color:#ff0000;}
-    .description{color:#ccc;font-size:14px;line-height:1.5;max-height:4.5em;overflow:hidden;transition:max-height 0.4s ease;}
-    .description.expanded{max-height:100px;}
-    #toggleDescription {background:none;border:none;color:#3ea6ff;cursor:pointer;font-size:14px;margin-top:4px;font-weight:bold;}
-
-    .play-overlay {position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:80px; color:white; background:rgba(0,0,0,0.6); border-radius:50%; padding:20px 30px; cursor:pointer; z-index:10; transition:transform 0.2s;}
-    .play-overlay:hover {transform:translate(-50%, -50%) scale(1.1);}
-    .play-overlay.hidden {display:none;}
+    /* Info Section */
+    .video-info{padding:16px;flex-shrink:0;}
+    .video-title{font-size:18px;font-weight:500;margin-bottom:8px;}
+    .video-stats{color:#aaa;font-size:14px;margin-bottom:12px;}
+    .engagement-buttons{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+    .engage-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:none;color:white;cursor:pointer;padding:8px 16px;border-radius:20px;font-size:14px;font-weight:500;}
+    .engage-btn:hover{background:rgba(255,255,255,0.2);}
+    .engage-btn.liked{color:#ff0000;}
+    .description{color:#ccc;font-size:14px;line-height:1.5;max-height:4.5em;overflow:hidden;transition:max-height 0.4s ease-in-out;}
+    .description.expanded{max-height:200px;}
+    #toggleDescription{background:none;border:none;color:white;cursor:pointer;font-size:14px;margin-top:8px;font-weight:bold;padding:4px;border-radius:4px;}
+    
+    /* Play Overlay */
+    .play-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(60px, 10vw, 80px);color:white;background:rgba(0,0,0,0.6);border-radius:50%;padding:20px;width:1.5em;height:1.5em;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:transform 0.2s ease;}
+    .play-overlay:hover{transform:translate(-50%,-50%) scale(1.1);}
+    .play-overlay.hidden{display:none;}
   </style>
 </head>
 <body>
@@ -169,9 +97,6 @@
   <div class="video-player" id="videoPlayer">
     <div class="play-overlay" id="playOverlay">▶️</div>
     <div class="video-content">
-      <div class="floating-emojis">
-        <div class="floating-emoji">🎂</div><div class="floating-emoji">🎉</div><div class="floating-emoji">🎈</div><div class="floating-emoji">🎁</div><div class="floating-emoji">🥳</div><div class="floating-emoji">🎊</div>
-      </div>
       
       <div class="scene youtube-intro-scene active" id="scene1">
         <div class="youtube-logo-big"><div class="play-icon-huge"></div>YouTube</div>
@@ -181,14 +106,15 @@
       <div class="scene birthday-scene" id="scene2">
         <div class="birthday-title">BIRTHDAY PARTY!</div>
         <div class="birthday-name">ARYAN JAIN</div>
+        <div class="age-display">TURNING 11!</div>
       </div>
       
       <div class="scene party-details-scene" id="scene3">
         <div class="details-title">Party Details</div>
         <div class="detail-card">
-          <div class="detail-item">🎂 🎉 Party: September 7th, 2025 at 6:00 PM 🎂🎉</div>
-          <div class="detail-item">🕺 Dress Code: ❤️🤍 Red & White Theme Party ❤️🤍 🕺</div>
-          <div class="detail-item">📍 Venue: 502/1E Periyar Nagar, Sattur, Tamil Nadu 📍</div>
+          <div class="detail-item">🎂 Party: September 7th, 2025 at 6:00 PM 🎉</div>
+          <div class="detail-item">🕺 Dress Code: Red & White Theme ❤️</div>
+          <div class="detail-item">📍 Venue: 502/1E Periyar Nagar, Sattur</div>
         </div>
       </div>
       
@@ -197,7 +123,7 @@
       </div>
       
       <div class="scene thankyou-scene" id="scene5">
-        <div class="thankyou-title">THANK YOU!</div>
+        <div class="thankyou-title">SEE YOU THERE!</div>
         <div class="thumbs-up">👍</div>
       </div>
       
@@ -217,18 +143,18 @@
   
   <div class="video-info">
     <div class="video-title">🎉 Aryan Jain's 11th Birthday Party Invitation 🎉</div>
-    <div class="video-stats">856 views • 3 hours ago</div>
+    <div class="video-stats">1.2K views • 1 day ago</div>
     <div class="engagement-buttons">
-      <button class="engage-btn" id="likeBtn"><span>👍</span> <span id="likeCount">37</span></button>
-      <button class="engage-btn"><span>👎</span> <span>0</span></button>
+      <button class="engage-btn" id="likeBtn"><span>👍</span> <span id="likeCount">115</span></button>
+      <button class="engage-btn"><span>👎</span></button>
       <button class="engage-btn" id="shareBtn"><span>📤</span> <span>Share</span></button>
       <button class="engage-btn" id="rsvpBtn"><span>🔔</span> <span>RSVP</span></button>
     </div>
     <div class="description" id="videoDescription">
       Join us for Aryan Jain's amazing 11th birthday celebration! 🎂✨<br><br>
-      📅 Party: September 7th, 2025 at 6:00 PM<br>
-      🕺 Dress Code: ❤️🤍 Red & White Theme Party ❤️🤍<br>
-      📍 Venue: 502/1E Periyar Nagar, Sattur, Tamil Nadu<br><br>
+      <strong>📅 Party:</strong> September 7th, 2025 at 6:00 PM<br>
+      <strong>🕺 Dress Code:</strong> Red & White Theme Party<br>
+      <strong>📍 Venue:</strong> 502/1E Periyar Nagar, Sattur, Tamil Nadu<br><br>
       Don't forget to RSVP and celebrate with us! 🎮🎈
     </div>
     <button id="toggleDescription">Show more</button>
@@ -264,7 +190,7 @@ function nextScene() {
 function updateTimer() {
   elapsedTime++;
   if (elapsedTime > totalDuration) {
-    elapsedTime = 0;
+    elapsedTime = 0; // Loop timer
   }
   const seconds = String(elapsedTime % 60).padStart(2, '0');
   const minutes = String(Math.floor(elapsedTime / 60)).padStart(2, '0');
@@ -282,11 +208,12 @@ function pauseVideo() {
 
 function resumeVideo() {
   isPaused = false;
-  clearInterval(sceneInterval); // Clear any existing intervals
+  // Clear any stray intervals before starting new ones
+  clearInterval(sceneInterval);
   clearInterval(progressInterval);
   sceneInterval = setInterval(nextScene, sceneDuration);
   progressInterval = setInterval(updateTimer, 1000);
-  audio.play();
+  audio.play().catch(error => console.log("Audio play failed:", error));
   playPauseBtn.textContent = '⏸️';
   playOverlay.classList.add('hidden');
 }
@@ -302,7 +229,7 @@ function togglePlayPause() {
 // --- Event Listeners ---
 videoPlayer.addEventListener('click', togglePlayPause);
 playPauseBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevents the videoPlayer click event from firing too
+    e.stopPropagation(); // Prevents the main player click event from firing too
     togglePlayPause();
 });
 
@@ -343,12 +270,10 @@ document.getElementById('rsvpBtn').addEventListener('click', (e) => {
 document.getElementById('toggleDescription').addEventListener('click', (e) => {
     e.stopPropagation();
     const desc = document.getElementById('videoDescription');
+    const btn = e.currentTarget;
     desc.classList.toggle('expanded');
-    e.currentTarget.textContent = desc.classList.contains('expanded') ? 'Show less' : 'Show more';
+    btn.textContent = desc.classList.contains('expanded') ? 'Show less' : 'Show more';
 });
-
-// --- Initial Setup ---
-// The page starts in a paused state, waiting for the user to interact.
 </script>
 </body>
 </html>
