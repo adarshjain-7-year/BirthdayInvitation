@@ -27,12 +27,23 @@
     .video-content{width:100%;height:100%;position:relative;overflow:hidden;background:linear-gradient(45deg,#cc0000,#ff0000,#dc143c,#b22222);background-size:400% 400%;animation:gradientShift 10s ease infinite;}
     @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
+    /* --- EMOJI ANIMATION CSS ADDED BACK --- */
+    .floating-emojis {position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:1;}
+    .floating-emoji {position:absolute;font-size:1.5rem;opacity:0;bottom:-60px;animation-iteration-count:infinite;animation-timing-function:linear;}
+    .floating-emoji:nth-child(1) { left: 8%; animation: float1 12s linear infinite; animation-delay: 0s; }
+    .floating-emoji:nth-child(2) { left: 25%; animation: float2 14s linear infinite; animation-delay: 2s; }
+    .floating-emoji:nth-child(3) { left: 42%; animation: float3 11s linear infinite; animation-delay: 4s; }
+    .floating-emoji:nth-child(4) { left: 59%; animation: float1 13s linear infinite; animation-delay: 6s; }
+    .floating-emoji:nth-child(5) { left: 76%; animation: float2 12s linear infinite; animation-delay: 8s; }
+    .floating-emoji:nth-child(6) { left: 93%; animation: float3 15s linear infinite; animation-delay: 10s; }
+    @keyframes float1{0%{transform:translateY(0) scale(0);opacity:0;}50%{opacity:1;}100%{transform:translateY(-100vh) scale(1);opacity:0;}}
+    @keyframes float2{0%{transform:translateY(0) scale(0);opacity:0;}50%{opacity:1;}100%{transform:translateY(-100vh) scale(0.8);opacity:0;}}
+    @keyframes float3{0%{transform:translateY(0) scale(0);opacity:0;}50%{opacity:1;}100%{transform:translateY(-100vh) scale(1.2);opacity:0;}}
+
     /* Scenes */
     .scene{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(0.95);transition:opacity 0.8s ease-in-out, transform 0.8s ease-in-out;padding:20px;text-align:center;z-index:2;}
     .scene.active{opacity:1;transform:scale(1);}
     
-    /* --- ANIMATIONS RESTORED --- */
-
     /* Scene 1: Intro Animations */
     .youtube-logo-big{font-size:clamp(60px, 12vw, 100px);font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:20px;text-shadow:0 0 30px rgba(255,255,255,0.5); animation:logoSpin 1.5s ease-out;}
     .play-icon-huge{border-left:clamp(30px, 6vw, 50px) solid white;border-top:clamp(20px, 4vw, 35px) solid transparent;border-bottom:clamp(20px, 4vw, 35px) solid transparent;animation:playPulse 1.5s ease-in-out infinite;}
@@ -102,6 +113,15 @@
     <div class="play-overlay" id="playOverlay">▶️</div>
     <div class="video-content">
       
+      <div class="floating-emojis">
+        <div class="floating-emoji">🎂</div>
+        <div class="floating-emoji">🎉</div>
+        <div class="floating-emoji">🎈</div>
+        <div class="floating-emoji">🎁</div>
+        <div class="floating-emoji">🥳</div>
+        <div class="floating-emoji">🎊</div>
+      </div>
+
       <div class="scene youtube-intro-scene active" id="scene1">
         <div class="youtube-logo-big"><div class="play-icon-huge"></div>YouTube</div>
         <h2>Presents...</h2>
