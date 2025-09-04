@@ -46,6 +46,7 @@
     .detail-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,0.2);max-width:95%;}
     .detail-item{font-size:clamp(16px, 4vw, 24px);font-weight:500;margin:12px 0;}
     
+    .subscribe-scene, .thankyou-scene {gap: 20px;}
     .subscribe-title, .thankyou-title{font-size:clamp(50px, 12vw, 80px);font-weight:900;}
     .thumbs-up{font-size:clamp(60px, 15vw, 100px); animation:thumbsUpBounce 2s ease-in-out infinite;}
     @keyframes thumbsUpBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
@@ -202,7 +203,6 @@ function pauseVideo() {
 
 function resumeVideo() {
   isPaused = false;
-  // Clear any stray intervals before starting new ones
   clearInterval(sceneInterval);
   clearInterval(progressInterval);
   sceneInterval = setInterval(nextScene, sceneDuration);
@@ -223,7 +223,7 @@ function togglePlayPause() {
 // --- Event Listeners ---
 videoPlayer.addEventListener('click', togglePlayPause);
 playPauseBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevents the main player click event from firing too
+    e.stopPropagation();
     togglePlayPause();
 });
 
